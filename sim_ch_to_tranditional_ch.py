@@ -21,7 +21,7 @@ for sub_folder in sub_folders:
     if not os.path.exists(saving_folder_path) :
         os.makedirs(saving_folder_path)
     
-    saving_file_path = saving_folder_path + 'sentencess.txt'
+    saving_file_path = saving_folder_path + 'sentences.txt'
     with open(saving_file_path,'w',encoding="utf-8") as file :
         file.write(saving_content)
 
