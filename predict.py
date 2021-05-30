@@ -40,7 +40,6 @@ if __name__ == "__main__":
                 '同 學 會 協 助 王 橞 瀴 進 行 說 明 ， 你 會 嗎 ? 王 橞 瀴 會 協 助 您',
                 '江 主 席 是 應 美 國 總 統 克 林 頓 的 邀 請 ， 從 １ ０ 月 ２ ６ 日 起 對 美 國 進 行 國 事 訪 問 的 。',
                 ' 老 牌 服 飾 業 者 涉 詐 貸 1 6 家 銀 行 踩 雷 12.25 億 台 銀 是 最 大 苦 主',
-                '宛 穎 與 葉 靜 縈 一 起 出 美 國 遊 玩 耍 ， 姜 藍 茵 在 旁 邊 與 巴 特 看 著 它 們',
                 '解 讀 台 積 電 張 忠 謀 在 演 講 的 4 大 關 鍵 ！ 一 場 劉 德 音 、 魏 哲 家 都 沒 錯 過 的 談 話']
     test_dataset = NER_Dataset(config).load_data('test',input_sentences = sentence)
     test_loader = DataLoader(test_dataset, batch_size=batch_size,
