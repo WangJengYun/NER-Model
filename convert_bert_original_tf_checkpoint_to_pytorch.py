@@ -20,7 +20,7 @@ def convert_tf_checkpoint_to_pytorch(tf_checkpoint_path, bert_config_file, pytor
     print("Save PyTorch model to {}".format(pytorch_dump_path))
     torch.save(model.state_dict(), pytorch_dump_path)
 
-
+# 記得要改名
 if __name__ == "__main__":
     config = configparser.ConfigParser() 
     config.read("model.conf")

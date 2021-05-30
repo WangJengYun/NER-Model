@@ -1,0 +1,152 @@
+2021-05-25 07:45:07 - __main__ - INFO: ===== import configuration =====
+2021-05-25 07:45:07 - root - INFO: Config:
+2021-05-25 07:45:07 - root - INFO: [Dataset]
+2021-05-25 07:45:07 - root - INFO: Dataset_path = data/traditional_ch/msra
+2021-05-25 07:45:07 - root - INFO: is_cls_flag = True
+2021-05-25 07:45:07 - root - INFO: align_for_token_maxlen = False
+2021-05-25 07:45:07 - root - INFO: cls_padding_idx = 0
+2021-05-25 07:45:07 - root - INFO: token_padding_idx = 0
+2021-05-25 07:45:07 - root - INFO: label_padding_idx = -1
+2021-05-25 07:45:07 - root - INFO: token_max_len = 128
+2021-05-25 07:45:07 - root - INFO: sample_seed = 207
+2021-05-25 07:45:07 - root - INFO: 
+2021-05-25 07:45:07 - root - INFO: [model]
+2021-05-25 07:45:07 - root - INFO: mode = training
+2021-05-25 07:45:07 - root - INFO: num_labels = 7
+2021-05-25 07:45:07 - root - INFO: selected_model = NER_For_Bert
+2021-05-25 07:45:07 - root - INFO: selected_optimizer = Transformer_Adaw
+2021-05-25 07:45:07 - root - INFO: selected_scheduler = cosine_schedule_with_warmup
+2021-05-25 07:45:07 - root - INFO: 
+2021-05-25 07:45:07 - root - INFO: [Label_mapping]
+2021-05-25 07:45:07 - root - INFO: O = 0
+2021-05-25 07:45:07 - root - INFO: B-PER = 1
+2021-05-25 07:45:07 - root - INFO: I-PER = 2
+2021-05-25 07:45:07 - root - INFO: B-ORG = 3
+2021-05-25 07:45:07 - root - INFO: I-ORG = 4
+2021-05-25 07:45:07 - root - INFO: B-LOC = 5
+2021-05-25 07:45:07 - root - INFO: I-LOC = 6
+2021-05-25 07:45:07 - root - INFO: 
+2021-05-25 07:45:07 - root - INFO: [Label]
+2021-05-25 07:45:07 - root - INFO: label_type = PER,ORG,LOC
+2021-05-25 07:45:07 - root - INFO: 
+2021-05-25 07:45:07 - root - INFO: [TF_model]
+2021-05-25 07:45:07 - root - INFO: TF_Bert_pretrained_model = pretrained_bert_models/tensorflow/Bert_chinese_L-12_H-768_A-12/
+2021-05-25 07:45:07 - root - INFO: TF_Bert_config = pretrained_bert_models/tensorflow/Bert_chinese_L-12_H-768_A-12/bert_config.json
+2021-05-25 07:45:07 - root - INFO: TF_Bert_checkpoint = pretrained_bert_models/tensorflow/Bert_chinese_L-12_H-768_A-12/bert_model.ckpt
+2021-05-25 07:45:07 - root - INFO: TF_Bert_vocab = pretrained_bert_models/tensorflow/Bert_chinese_L-12_H-768_A-12/vocab.txt
+2021-05-25 07:45:07 - root - INFO: 
+2021-05-25 07:45:07 - root - INFO: [pytorch_model]
+2021-05-25 07:45:07 - root - INFO: pytorch_Bert_pretrained_model = pretrained_bert_models/pytorch/Bert_chinese_L-12_H-768_A-12/
+2021-05-25 07:45:07 - root - INFO: pytorch_Bert_vocab = pretrained_bert_models/pytorch/Bert_chinese_L-12_H-768_A-12/vocab.txt
+2021-05-25 07:45:07 - root - INFO: pytorch_Bert_model = ./experiments/
+2021-05-25 07:45:07 - root - INFO: 
+2021-05-25 07:45:07 - root - INFO: [env]
+2021-05-25 07:45:07 - root - INFO: devive = cuda
+2021-05-25 07:45:07 - root - INFO: 
+2021-05-25 07:45:07 - root - INFO: [hyperparameter]
+2021-05-25 07:45:07 - root - INFO: full_fine_tuning = True
+2021-05-25 07:45:07 - root - INFO: batch_size = 16
+2021-05-25 07:45:07 - root - INFO: epoch_num = 50
+2021-05-25 07:45:07 - root - INFO: learning_rate = 3e-5
+2021-05-25 07:45:07 - root - INFO: weight_decay = 0.01
+2021-05-25 07:45:07 - root - INFO: clip_grad = 5
+2021-05-25 07:45:07 - root - INFO: patience_num = 5
+2021-05-25 07:45:07 - root - INFO: patience_value = 0.01
+2021-05-25 07:45:07 - root - INFO: 
+2021-05-25 07:45:07 - root - INFO: [training_setting]
+2021-05-25 07:45:07 - root - INFO: saving_model_path = ./experiments/
+2021-05-25 07:45:07 - root - INFO: 
+2021-05-25 07:45:07 - __main__ - INFO: ===== import data =====
+2021-05-25 07:45:32 - __main__ - INFO: ===== getting model =====
+2021-05-25 07:45:37 - __main__ - INFO: ===== Starting Training =====
+2021-05-25 07:45:37 - __main__ - INFO: ===== Epoch 1=====
+2021-05-25 08:20:16 - __main__ - INFO: Epoch: 1, train loss: 295.750144304548
+2021-05-25 08:21:20 - __main__ - INFO: evaluate: {'full': 0.4643333333333333, 'label_score': {'PER': 0.782, 'ORG': 0.7316666666666667, 'LOC': 0.6346666666666667}}
+2021-05-25 08:21:20 - __main__ - INFO: best_eval_metric = 0.4643333333333333;current_num_patience = 0
+2021-05-25 08:21:20 - __main__ - INFO: ===== Epoch 2=====
+2021-05-25 08:55:54 - __main__ - INFO: Epoch: 2, train loss: 114.6189531903948
+2021-05-25 08:56:59 - __main__ - INFO: evaluate: {'full': 0.5983333333333334, 'label_score': {'PER': 0.8653333333333333, 'ORG': 0.7976666666666666, 'LOC': 0.7533333333333333}}
+2021-05-25 08:56:59 - __main__ - INFO: ***** Saving model *****
+2021-05-25 08:57:08 - __main__ - INFO: best_eval_metric = 0.5983333333333334;current_num_patience = 0
+2021-05-25 08:57:08 - __main__ - INFO: ===== Epoch 3=====
+2021-05-25 09:31:49 - __main__ - INFO: Epoch: 3, train loss: 70.97147662644159
+2021-05-25 09:32:54 - __main__ - INFO: evaluate: {'full': 0.675, 'label_score': {'PER': 0.9096666666666666, 'ORG': 0.8273333333333333, 'LOC': 0.8126666666666666}}
+2021-05-25 09:32:54 - __main__ - INFO: ***** Saving model *****
+2021-05-25 09:33:03 - __main__ - INFO: best_eval_metric = 0.675;current_num_patience = 0
+2021-05-25 09:33:03 - __main__ - INFO: ===== Epoch 4=====
+2021-05-25 10:07:06 - __main__ - INFO: Epoch: 4, train loss: 48.05088122558594
+2021-05-25 10:08:08 - __main__ - INFO: evaluate: {'full': 0.7313333333333333, 'label_score': {'PER': 0.9233333333333333, 'ORG': 0.8733333333333333, 'LOC': 0.8476666666666666}}
+2021-05-25 10:08:08 - __main__ - INFO: ***** Saving model *****
+2021-05-25 10:08:16 - __main__ - INFO: best_eval_metric = 0.7313333333333333;current_num_patience = 0
+2021-05-25 10:08:16 - __main__ - INFO: ===== Epoch 5=====
+2021-05-25 10:40:50 - __main__ - INFO: Epoch: 5, train loss: 34.11043481881278
+2021-05-25 10:41:51 - __main__ - INFO: evaluate: {'full': 0.7606666666666668, 'label_score': {'PER': 0.9263333333333333, 'ORG': 0.8986666666666666, 'LOC': 0.8599999999999999}}
+2021-05-25 10:41:51 - __main__ - INFO: ***** Saving model *****
+2021-05-25 10:41:59 - __main__ - INFO: best_eval_metric = 0.7606666666666668;current_num_patience = 0
+2021-05-25 10:41:59 - __main__ - INFO: ===== Epoch 6=====
+2021-05-25 11:14:39 - __main__ - INFO: Epoch: 6, train loss: 24.217060054234096
+2021-05-25 11:15:41 - __main__ - INFO: evaluate: {'full': 0.7793333333333334, 'label_score': {'PER': 0.9383333333333334, 'ORG': 0.892, 'LOC': 0.8706666666666667}}
+2021-05-25 11:15:41 - __main__ - INFO: ***** Saving model *****
+2021-05-25 11:15:50 - __main__ - INFO: best_eval_metric = 0.7793333333333334;current_num_patience = 0
+2021-05-25 11:15:50 - __main__ - INFO: ===== Epoch 7=====
+2021-05-25 11:48:25 - __main__ - INFO: Epoch: 7, train loss: 16.973919615246
+2021-05-25 11:49:26 - __main__ - INFO: evaluate: {'full': 0.7996666666666666, 'label_score': {'PER': 0.9453333333333334, 'ORG': 0.9026666666666666, 'LOC': 0.8886666666666667}}
+2021-05-25 11:49:26 - __main__ - INFO: ***** Saving model *****
+2021-05-25 11:49:35 - __main__ - INFO: best_eval_metric = 0.7996666666666666;current_num_patience = 0
+2021-05-25 11:49:35 - __main__ - INFO: ===== Epoch 8=====
+2021-05-25 12:22:55 - __main__ - INFO: Epoch: 8, train loss: 12.423589861188615
+2021-05-25 12:23:57 - __main__ - INFO: evaluate: {'full': 0.8233333333333334, 'label_score': {'PER': 0.9496666666666667, 'ORG': 0.9103333333333333, 'LOC': 0.908}}
+2021-05-25 12:23:57 - __main__ - INFO: ***** Saving model *****
+2021-05-25 12:24:05 - __main__ - INFO: best_eval_metric = 0.8233333333333334;current_num_patience = 0
+2021-05-25 12:24:05 - __main__ - INFO: ===== Epoch 9=====
+2021-05-25 12:57:02 - __main__ - INFO: Epoch: 9, train loss: 9.143209760393415
+2021-05-25 12:58:02 - __main__ - INFO: evaluate: {'full': 0.835, 'label_score': {'PER': 0.9533333333333334, 'ORG': 0.9206666666666665, 'LOC': 0.9153333333333333}}
+2021-05-25 12:58:02 - __main__ - INFO: ***** Saving model *****
+2021-05-25 12:58:09 - __main__ - INFO: best_eval_metric = 0.835;current_num_patience = 0
+2021-05-25 12:58:09 - __main__ - INFO: ===== Epoch 10=====
+2021-05-25 13:31:00 - __main__ - INFO: Epoch: 10, train loss: 6.751645725795201
+2021-05-25 13:32:00 - __main__ - INFO: evaluate: {'full': 0.83, 'label_score': {'PER': 0.9473333333333334, 'ORG': 0.9216666666666666, 'LOC': 0.907}}
+2021-05-25 13:32:00 - __main__ - INFO: best_eval_metric = 0.835;current_num_patience = 1
+2021-05-25 13:32:00 - __main__ - INFO: ===== Epoch 11=====
+2021-05-25 14:06:37 - __main__ - INFO: Epoch: 11, train loss: 5.397409747078306
+2021-05-25 14:07:42 - __main__ - INFO: evaluate: {'full': 0.8333333333333334, 'label_score': {'PER': 0.9556666666666667, 'ORG': 0.9193333333333333, 'LOC': 0.9103333333333333}}
+2021-05-25 14:07:42 - __main__ - INFO: best_eval_metric = 0.835;current_num_patience = 2
+2021-05-25 14:07:42 - __main__ - INFO: ===== Epoch 12=====
+2021-05-25 14:42:20 - __main__ - INFO: Epoch: 12, train loss: 4.417561132703509
+2021-05-25 14:43:25 - __main__ - INFO: evaluate: {'full': 0.8356666666666667, 'label_score': {'PER': 0.9543333333333334, 'ORG': 0.9273333333333333, 'LOC': 0.9086666666666666}}
+2021-05-25 14:43:25 - __main__ - INFO: ***** Saving model *****
+2021-05-25 14:43:33 - __main__ - INFO: best_eval_metric = 0.8356666666666667;current_num_patience = 0
+2021-05-25 14:43:33 - __main__ - INFO: ===== Epoch 13=====
+2021-05-25 15:18:17 - __main__ - INFO: Epoch: 13, train loss: 3.9104905141194664
+2021-05-25 15:19:22 - __main__ - INFO: evaluate: {'full': 0.8306666666666667, 'label_score': {'PER': 0.9513333333333334, 'ORG': 0.9166666666666666, 'LOC': 0.9126666666666666}}
+2021-05-25 15:19:22 - __main__ - INFO: best_eval_metric = 0.8356666666666667;current_num_patience = 1
+2021-05-25 15:19:22 - __main__ - INFO: ===== Epoch 14=====
+2021-05-25 15:54:12 - __main__ - INFO: Epoch: 14, train loss: 4.890771715618315
+2021-05-25 15:55:17 - __main__ - INFO: evaluate: {'full': 0.8370000000000001, 'label_score': {'PER': 0.951, 'ORG': 0.9176666666666666, 'LOC': 0.9126666666666666}}
+2021-05-25 15:55:17 - __main__ - INFO: ***** Saving model *****
+2021-05-25 15:55:24 - __main__ - INFO: best_eval_metric = 0.8370000000000001;current_num_patience = 0
+2021-05-25 15:55:24 - __main__ - INFO: ===== Epoch 15=====
+2021-05-25 16:30:05 - __main__ - INFO: Epoch: 15, train loss: 4.39218798828125
+2021-05-25 16:31:09 - __main__ - INFO: evaluate: {'full': 0.8383333333333334, 'label_score': {'PER': 0.953, 'ORG': 0.92, 'LOC': 0.9156666666666666}}
+2021-05-25 16:31:09 - __main__ - INFO: ***** Saving model *****
+2021-05-25 16:31:18 - __main__ - INFO: best_eval_metric = 0.8383333333333334;current_num_patience = 0
+2021-05-25 16:31:18 - __main__ - INFO: ===== Epoch 16=====
+2021-05-25 17:05:49 - __main__ - INFO: Epoch: 16, train loss: 3.7972590680803573
+2021-05-25 17:06:53 - __main__ - INFO: evaluate: {'full': 0.836, 'label_score': {'PER': 0.9503333333333334, 'ORG': 0.9223333333333333, 'LOC': 0.9133333333333333}}
+2021-05-25 17:06:53 - __main__ - INFO: best_eval_metric = 0.8383333333333334;current_num_patience = 1
+2021-05-25 17:06:53 - __main__ - INFO: ===== Epoch 17=====
+2021-05-25 17:41:34 - __main__ - INFO: Epoch: 17, train loss: 3.411868582589286
+2021-05-25 17:42:38 - __main__ - INFO: evaluate: {'full': 0.8416666666666667, 'label_score': {'PER': 0.9536666666666667, 'ORG': 0.9206666666666665, 'LOC': 0.9163333333333333}}
+2021-05-25 17:42:38 - __main__ - INFO: ***** Saving model *****
+2021-05-25 17:42:47 - __main__ - INFO: best_eval_metric = 0.8416666666666667;current_num_patience = 0
+2021-05-25 17:42:47 - __main__ - INFO: ===== Epoch 18=====
+2021-05-25 18:17:31 - __main__ - INFO: Epoch: 18, train loss: 3.5324756324404762
+2021-05-25 18:18:36 - __main__ - INFO: evaluate: {'full': 0.8423333333333334, 'label_score': {'PER': 0.953, 'ORG': 0.9253333333333333, 'LOC': 0.916}}
+2021-05-25 18:18:36 - __main__ - INFO: ***** Saving model *****
+2021-05-25 18:18:43 - __main__ - INFO: best_eval_metric = 0.8423333333333334;current_num_patience = 0
+2021-05-25 18:18:43 - __main__ - INFO: ===== Epoch 19=====
+2021-05-25 18:53:20 - __main__ - INFO: Epoch: 19, train loss: 3.9650301339285714
+2021-05-25 18:54:24 - __main__ - INFO: evaluate: {'full': 0.848, 'label_score': {'PER': 0.9556666666666667, 'ORG': 0.9303333333333333, 'LOC': 0.9176666666666666}}
+2021-05-25 18:54:24 - __main__ - INFO: ***** Saving model *****
+2021-05-25 18:54:33 - __main__ - INFO: best_eval_metric = 0.848;current_num_patience = 0
+2021-05-25 18:54:33 - __main__ - INFO: ===== Epoch 20=====

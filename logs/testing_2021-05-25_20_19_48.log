@@ -1,0 +1,58 @@
+2021-05-25 20:19:48 - __main__ - INFO: ===== import configuration =====
+2021-05-25 20:19:48 - root - INFO: Config:
+2021-05-25 20:19:48 - root - INFO: [Dataset]
+2021-05-25 20:19:48 - root - INFO: Dataset_path = data/traditional_ch/msra
+2021-05-25 20:19:48 - root - INFO: is_cls_flag = True
+2021-05-25 20:19:48 - root - INFO: align_for_token_maxlen = False
+2021-05-25 20:19:48 - root - INFO: cls_padding_idx = 0
+2021-05-25 20:19:48 - root - INFO: token_padding_idx = 0
+2021-05-25 20:19:48 - root - INFO: label_padding_idx = -1
+2021-05-25 20:19:48 - root - INFO: token_max_len = 128
+2021-05-25 20:19:48 - root - INFO: sample_seed = 207
+2021-05-25 20:19:48 - root - INFO: 
+2021-05-25 20:19:48 - root - INFO: [model]
+2021-05-25 20:19:48 - root - INFO: mode = testing
+2021-05-25 20:19:48 - root - INFO: num_labels = 7
+2021-05-25 20:19:48 - root - INFO: selected_model = NER_For_Bert
+2021-05-25 20:19:48 - root - INFO: selected_optimizer = Transformer_Adaw
+2021-05-25 20:19:48 - root - INFO: selected_scheduler = cosine_schedule_with_warmup
+2021-05-25 20:19:48 - root - INFO: 
+2021-05-25 20:19:48 - root - INFO: [Label_mapping]
+2021-05-25 20:19:48 - root - INFO: O = 0
+2021-05-25 20:19:48 - root - INFO: B-PER = 1
+2021-05-25 20:19:48 - root - INFO: I-PER = 2
+2021-05-25 20:19:48 - root - INFO: B-ORG = 3
+2021-05-25 20:19:48 - root - INFO: I-ORG = 4
+2021-05-25 20:19:48 - root - INFO: B-LOC = 5
+2021-05-25 20:19:48 - root - INFO: I-LOC = 6
+2021-05-25 20:19:48 - root - INFO: 
+2021-05-25 20:19:48 - root - INFO: [Label]
+2021-05-25 20:19:48 - root - INFO: label_type = PER,ORG,LOC
+2021-05-25 20:19:48 - root - INFO: 
+2021-05-25 20:19:48 - root - INFO: [TF_model]
+2021-05-25 20:19:48 - root - INFO: TF_Bert_pretrained_model = pretrained_bert_models/tensorflow/Bert_chinese_L-12_H-768_A-12/
+2021-05-25 20:19:48 - root - INFO: TF_Bert_config = pretrained_bert_models/tensorflow/Bert_chinese_L-12_H-768_A-12/bert_config.json
+2021-05-25 20:19:48 - root - INFO: TF_Bert_checkpoint = pretrained_bert_models/tensorflow/Bert_chinese_L-12_H-768_A-12/bert_model.ckpt
+2021-05-25 20:19:48 - root - INFO: TF_Bert_vocab = pretrained_bert_models/tensorflow/Bert_chinese_L-12_H-768_A-12/vocab.txt
+2021-05-25 20:19:48 - root - INFO: 
+2021-05-25 20:19:48 - root - INFO: [pytorch_model]
+2021-05-25 20:19:48 - root - INFO: pytorch_Bert_pretrained_model = pretrained_bert_models/pytorch/Bert_chinese_L-12_H-768_A-12/
+2021-05-25 20:19:48 - root - INFO: pytorch_Bert_vocab = pretrained_bert_models/pytorch/Bert_chinese_L-12_H-768_A-12/vocab.txt
+2021-05-25 20:19:48 - root - INFO: pytorch_Bert_model = ./experiments/checkpoint_2021-05-25_07_45_37/
+2021-05-25 20:19:48 - root - INFO: 
+2021-05-25 20:19:48 - root - INFO: [env]
+2021-05-25 20:19:48 - root - INFO: devive = cuda
+2021-05-25 20:19:48 - root - INFO: 
+2021-05-25 20:19:48 - root - INFO: [hyperparameter]
+2021-05-25 20:19:48 - root - INFO: full_fine_tuning = True
+2021-05-25 20:19:48 - root - INFO: batch_size = 16
+2021-05-25 20:19:48 - root - INFO: epoch_num = 50
+2021-05-25 20:19:48 - root - INFO: learning_rate = 3e-5
+2021-05-25 20:19:48 - root - INFO: weight_decay = 0.01
+2021-05-25 20:19:48 - root - INFO: clip_grad = 5
+2021-05-25 20:19:48 - root - INFO: patience_num = 5
+2021-05-25 20:19:48 - root - INFO: patience_value = 0.01
+2021-05-25 20:19:48 - root - INFO: 
+2021-05-25 20:19:48 - root - INFO: [training_setting]
+2021-05-25 20:19:48 - root - INFO: saving_model_path = ./experiments/
+2021-05-25 20:19:48 - root - INFO: 

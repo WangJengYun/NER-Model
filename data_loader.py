@@ -1,92 +1,160 @@
+import os
 import torch 
+import logging
+import random
 import numpy as np 
 import configparser
 from torch.utils.data import Dataset
 from transformers import BertTokenizer
 
-class NER_dataset(Dataset):
-    def __init__(self,config,datatype,input_data = None):
-        
+class NER_Dataset(object):
+    def __init__(self,config):
+
         self.tokenizer = BertTokenizer.from_pretrained(config['pytorch_model']['pytorch_Bert_pretrained_model'], do_lower_case=True)
-        self.label_to_id = dict(config['Label_mapping'])
-        self.dataset_path = config['Dataset']['Dataset_path']
         
-        self.dataset = self.convert_dataset_to_bertinput(datatype,input_data)
-
-    def convert_dataset_to_bertinput(self,datatype,input_data):
-
-        if input_data :
-            sentences,target = input_data
-
-        elif datatype :
-            sentences = open(self.dataset_path + '/' + datatype + "/sentences.txt", "r",encoding='utf-8').readlines()
-            targets = open(self.dataset_path + '/' + datatype + "/target.txt", "r",encoding='utf-8').readlines()
-            assert len(sentences) == len(targets)
-        else : 
-            raise  ValueError('Please input "datatype" or "input_data"')
+        label_mapping = dict(config['Label_mapping'])
+        self.label_to_idx = label_mapping
+        self.idx_to_label = dict(zip(label_mapping.values(),label_mapping.keys()))
         
-        input_data = []
-        label = []
-        for idx in range(len(sentences)) :
-            # idx = 69
-            token = ['[CLS]'] + self.tokenizer.tokenize(sentences[idx].strip())
-            target = targets[idx].strip().split(' ')
-            assert len(token) == len(target) + 1
+        self.dataset_path = config['Dataset']['Dataset_path']  
+        self.is_cls_flag = bool(config['Dataset']['is_cls_flag'])   
+        self.align_for_token_maxlen = bool(config['Dataset']['align_for_token_maxlen'])   
+        self.token_padding_idx = int(config['Dataset']['token_padding_idx'])
+        self.cls_padding_idx = int(config['Dataset']['cls_padding_idx'])
+        self.label_padding_idx = int(config['Dataset']['label_padding_idx'])
+        self.token_max_len = int(config['Dataset']['token_max_len'])
+        self.sample_seed = int(config['Dataset']['sample_seed'])
+
+        self.device = config['env']['devive']
+
+        self.data = None 
+        self.data_size = None
+        self.datatype = None
+
+    def load_data(self,datatype,input_sentences = None):
+        # datatype = 'val'
+        self.datatype = datatype
+        sentences = None
+        label= None
+        if input_sentences == None:
+            sentences_path = os.path.join(self.dataset_path,self.datatype,'sentences.txt')
+            sentences = open(sentences_path,encoding='utf-8').readlines()
+            sentences = [s.strip() for s in sentences]
             
-            token_idx = self.tokenizer.convert_tokens_to_ids(token)
-            token_pos = list(range(1,len(token) +1))
-            target_idx = [self.label_to_id[c] for c in target]
+            if self.datatype in ['train','val']:
+                
+                label_path = os.path.join(self.dataset_path,self.datatype,'target.txt')
+                label = open(label_path,encoding='utf-8').readlines()    
+                label = [s.strip() for s in label]
 
-            label.append(target_idx)
-            input_data.append((token,token_idx,token_pos))
+                assert len(sentences) == len(label)
+ 
+        else:
+            sentences = input_sentences
+
+        self.data_size = len(sentences)
+
+        self.data = self.convert_word_to_idx(sentences,label)
+
+        return self
+    
+    def convert_word_to_idx(self,sentences,label):
+        add_word = 0
+        if self.is_cls_flag:
+            add_word = 1
+            sentences = [ '[CLS]' + s for s in sentences]
+
         
-        return list(zip(input_data,label))
+        token_idx = []
+        label_idx = []
+        for idx in range(self.data_size):
+            # handling sentence
+            singel_words_list = self.tokenizer.tokenize(sentences[idx])
+            token_idx.append(self.tokenizer.convert_tokens_to_ids(singel_words_list))
+            
+            # handling label
+            if self.datatype in ['train','val']:
+                current_label = label[idx].strip().split(' ')
+            else :
+                current_label = ['O']*(len(singel_words_list)-add_word)
+            label_idx.append([self.label_to_idx[i] for i in current_label])
+        
+        for i in range(self.data_size):
+            assert len(token_idx[i]) == (len(label_idx[i]) + add_word)
 
+        return list(zip(token_idx,label_idx))
+    
     def __getitem__(self,idx):
-        # input_data = [row[0] for row in self.dataset[idx]]
-        # label = [row[1] for row in self.dataset[idx]]
-        batch = self.dataset[idx]
-        return batch
-
+        return self.data[idx]
+    
     def __len__(self):
-        return len(self.dataset)
-
+        return self.data_size
+    # batch = dataset[0:8]
     def collate_fn(self,batch):
-        token_padding_idx = int(self.config['Dataset']['token_padding_idx'])
-        label_padding_idx = int(self.config['Dataset']['label_padding_idx'])
-        token_max_len = int(self.config['Dataset']['token_max_len'])
+        token_idx = [row[0] for row in batch]
+        label_idx = [row[1] for row in batch]
 
-        input_data = [row[0] for row in batch]
-        labels = [row[1] for row in batch]
-        assert len(input_data) == len(labels)
-
-        batch_len = len(input_data)
-
-        token_max_len = max([len(data[0]) for data in input_data])
-
-        batch_data = np.full((batch_len,token_max_len),token_padding_idx)
-        batch_label_Flag = np.full((batch_len,token_max_len),0)
-        batch_labels = np.full((batch_len,token_max_len),label_padding_idx)
+        batch_len = len(token_idx)
+        batch_token_maxlen = max([len(s) for s in token_idx])
+        
+        maxlen = self.token_max_len
+        if (self.align_for_token_maxlen) and (batch_token_maxlen < maxlen):
+            maxlen = batch_token_maxlen 
+        
+        batch_idx = self.token_padding_idx * np.ones((batch_len, maxlen))
+        batch_label = self.label_padding_idx * np.ones((batch_len, maxlen))
+        batch_pos = np.zeros((batch_len, maxlen))
+        
+        label_start_idx = 0
+        if self.is_cls_flag:
+            label_start_idx = 1
+            batch_label[:,0] = self.cls_padding_idx
 
         for idx in range(batch_len):
-            _,token_idx,token_pos = input_data[idx]
-            label = labels[idx]
-            current_len = len(token_idx)
-            if current_len <= token_max_len:
-                batch_data[idx][:current_len] = token_idx
-                input_token_pos = [ i-1 for i in token_pos if i-1 != 0 ]
-                batch_label_Flag[idx][input_token_pos] = 1  
-                batch_labels[idx][1:current_len] = label
-           
-        batch_data = torch.tensor(batch_data, dtype=torch.long)
-        batch_label_Flag = torch.tensor(batch_label_Flag, dtype=torch.long)
-        batch_labels = torch.tensor(batch_labels, dtype=torch.long)
+            current_len = len(token_idx[idx])
+            if current_len<= maxlen:
+                batch_idx[idx][:current_len] = token_idx[idx]
+                batch_label[idx][label_start_idx:current_len] = label_idx[idx]
+            else :
+                batch_idx[idx] = token_idx[idx][:maxlen]
+                batch_label[idx][label_start_idx:] = label_idx[idx][:(maxlen-label_start_idx)]
 
-        batch_data = batch_data.to(self.config['env']['devive'])
-        batch_label_Flag = batch_label_Flag.to(self.config['env']['devive'])
-        batch_labels = batch_labels.to(self.config['env']['devive'])
+        # since all data are indices, we convert them to torch LongTensors
+        batch_idx = torch.tensor(batch_idx, dtype=torch.long)
+        batch_label = torch.tensor(batch_label, dtype=torch.long)  
+        batch_pos = torch.tensor(batch_pos, dtype=torch.long)  
+        
+        # shift tensors to GPU if available
+        batch_idx, batch_label = batch_idx.to(self.device), batch_label.to(self.device)
 
-        return [batch_data, batch_label_Flag, batch_labels]
+        return batch_idx, batch_label
+    # batch_size = 16
+    def data_iterator(self,batch_size,shuffle = False):
+        
+        token_idx,label_idx = self.data
+
+        order = list(range(self.data_size))
+        if shuffle:
+            random.seed(self.sample_seed)
+            random.shuffle(order)
+        
+        for idx in range(self.data_size//batch_size):
+            start_idx = idx*batch_size
+            end_idx = (idx+1)*batch_size
+
+            batch_data = (token_idx[start_idx:end_idx],label_idx[start_idx:end_idx])
+
+            yield self.collate_fn(batch_data)
 
 if __name__ == "__main__":
-    pass        
+    pass 
+    # import configparser
+    # config = configparser.ConfigParser() 
+    # config.optionxform = str
+    # config.read("config.conf")
+    # 
+    # dataset = NER_Dataset(config).load_data('val')
+# 
+    # AA = dataset.data_iterator(batch_size = 8,shuffle = False)
+# 
+    # input_ids,labels= next(AA)
